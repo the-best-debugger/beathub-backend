@@ -1,0 +1,23 @@
+{
+  "name": "4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts/seed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm i && nodemon scripts/seed.js",
+    "start": "node scripts/seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "mongoose": "^7.3.4",
+    "express": "^4.18.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
