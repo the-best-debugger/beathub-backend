@@ -1,12 +1,12 @@
 {
-  "name": "4",
+  "name": "beathub-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "scripts/seed.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm i && nodemon scripts/seed.js",
-    "start": "node scripts/seed.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",

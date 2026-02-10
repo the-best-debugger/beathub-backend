@@ -1,10 +1,10 @@
 // scripts/seed.js
 import mongoose from "mongoose";
-import Artist from "../models/artist.model.js";
-import Album from "../models/album.model.js";
-import Song from "../models/song.model.js";
-import User from "../models/user.model.js";
-import Playlist from "../models/playlist.model.js";
+import Artist from "../models/artist.js";
+import Album from "../models/album.js";
+import Song from "../models/song.js";
+import User from "../models/user.js";
+import Playlist from "../models/playlist.js";
 import dotenv from "dotenv";
 
 dotenv.config();
