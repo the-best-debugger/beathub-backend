@@ -19,5 +19,5 @@ const artistSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 artistSchema.index({ name: 1, genre: 1 });
-const Artist = mongoose.model('Artist', artistSchema);
+const Artist = mongoose.models.Artist || mongoose.model('Artist', artistSchema);
 export default Artist;

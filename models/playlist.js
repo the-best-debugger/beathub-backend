@@ -18,5 +18,5 @@ const playlistSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 playlistSchema.index({ user: 1 });
-const Playlist = mongoose.model("Playlist", playlistSchema);
+const Playlist = mongoose.models.Playlist || mongoose.model("Playlist", playlistSchema);
 export default Playlist;

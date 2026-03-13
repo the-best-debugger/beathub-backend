@@ -30,5 +30,5 @@ const songSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 songSchema.index({ title: 1, genre: 1, artist: 1 });  // For searches
-const Song = mongoose.model("Song", songSchema);
+const Song = mongoose.models.Song || mongoose.model("Song", songSchema);
 export default Song;

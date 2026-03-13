@@ -34,5 +34,5 @@ albumSchema.set('toJSON', { virtuals: true });
 albumSchema.set('toObject', { virtuals: true });
 
 albumSchema.index({ artist: 1, releaseYear: 1 });
-const Album = mongoose.model("Album", albumSchema);
+const Album = mongoose.models.Album || mongoose.model("Album", albumSchema);
 export default Album;
