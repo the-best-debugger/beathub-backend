@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import songRoutes from "./routes/song.js";
+import authRoutes from './routes/auth.js';
 import mongoose from "mongoose";
 dotenv.config();
 
@@ -8,15 +9,15 @@ import analyticsRouter from './routes/analytics.js';
 
 const app = express();
 app.use(express.json());
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 app.get("/", (req, res) => {
   res.send('BeatHub API Running 🚀');
 });
 
+app.use('/api/auth', authRoutes);
 app.use("/api/songs", songRoutes);
-
 app.use('/api/analytics', analyticsRouter);
 
 mongoose.connect(MONGO_URI)
