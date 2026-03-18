@@ -1,8 +1,6 @@
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 
-const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS, 10) || 12;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
 
 export const registerUser = async (req, res) => {
@@ -17,8 +15,8 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ success: false, error: { message: 'Email already registered' } });
     }
 
-    const hashed = await bcrypt.hash(password, SALT_ROUNDS);
-    const user = new User({ username, email, password: hashed });
+    // Let the User model pre-save hook hash the password
+    const user = new User({ username, email, password });
     await user.save();
 
     res.status(201).json({
@@ -42,12 +40,13 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ success: false, error: { message: 'Please provide email and password' } });
     }
 
-    const user = await User.findOne({ email });
+    // Need to select the password field explicitly because the schema hides it by default
+    const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return res.status(401).json({ success: false, error: { message: 'Invalid email or password' } });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(401).json({ success: false, error: { message: 'Invalid email or password' } });
     }
