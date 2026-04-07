@@ -1,11 +1,11 @@
 import express from "express";
 import {AddSong, GetAllSongs, GetSongById} from "../controllers/song.js";
+import { getSongsCursor } from '../controllers/songController.js';
 
 const router = express.Router();
 
-// Get all songs
 router.get("/", GetAllSongs);
-// Get a song by ID
+router.get('/songs', getSongsCursor);
 router.get("/:id", GetSongById);
 
 export default router;

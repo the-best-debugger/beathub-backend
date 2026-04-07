@@ -15,7 +15,6 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ success: false, error: { message: 'Email already registered' } });
     }
 
-    // Let the User model pre-save hook hash the password
     const user = new User({ username, email, password });
     await user.save();
 
@@ -40,7 +39,6 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ success: false, error: { message: 'Please provide email and password' } });
     }
 
-    // Need to select the password field explicitly because the schema hides it by default
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return res.status(401).json({ success: false, error: { message: 'Invalid email or password' } });
@@ -51,14 +49,14 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ success: false, error: { message: 'Invalid email or password' } });
     }
 
-    const payload = { id: user._id, username: user.username };
+    const payload = { id: user._id, username: user.username, role: user.role };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
     res.status(200).json({
       success: true,
       message: 'Login successful',
       token,
-      user: { id: user._id, username: user.username, email: user.email }
+      user: { id: user._id, username: user.username, email: user.email, role: user.role }
     });
   } catch (err) {
     res.status(500).json({ success: false, error: { message: 'Login failed' } });
